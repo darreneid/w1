@@ -18,6 +18,3 @@ class Game
     p dictionary.length
   end
 end
-
-game = Game.new(2) {"John", "Bill"}
-game.test
