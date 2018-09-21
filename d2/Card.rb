@@ -8,7 +8,7 @@ class Card
 
     def display
         if @status == "down"
-            " "
+            "-"
         else
             "#{@face_value}"
         end
