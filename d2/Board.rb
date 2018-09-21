@@ -1,6 +1,9 @@
 class Board
+    attr_accessor :grid
+
     def initialize
-        @grid = Array.new(5) {Array.new(5)}
+        @grid = Array.new(4) {Array.new(4)}
+        @grid[0][0] = 10
     end
 
     def render

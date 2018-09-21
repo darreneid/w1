@@ -1,4 +1,6 @@
 class Card
+    attr_accessor :face_value, :status
+
     def initialize(value, status = "down")
         @face_value = value
         @status = status
