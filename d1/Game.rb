@@ -21,9 +21,7 @@ class Game
         p "The fragment is now #{@fragment}"
         next_player
       end
-      current_player.losses(current_player.losses+1)
-      @player_one.update
-      @player_two.update
+      update
     end
   
     def take_turn(player)
@@ -35,6 +33,7 @@ class Game
       end
       if !valid_play?(@fragment + entry)
         p "You lose this round, #{player.name}"
+        current_player.losses(current_player.losses+1)
         return false
       else
         @fragment += entry
@@ -52,10 +51,16 @@ class Game
       end
       return "invalid"
     end
+
+    def update
+        @player_one.update
+        @player_two.update
+        puts "\n"
+    end
   
     def fragment(x = @fragment)
-      @fragment = x
-      @fragment
+        @fragment = x
+        @fragment
     end
   
     def next_player
