@@ -10,26 +10,41 @@ class Game
 
   def initialize(*players)
     @fragment = ""
-    @play = []
-    players.each {|p| @play << p}
-    @current_player = Player.new(play[0])
-    @next_player = Player.new(play[1])
-    @previous_player = nil
+    @names = []
+    players.each {|p| @names << p}
+    @player_one = Player.new(@names[0])
+    @player_two = Player.new(@names[1])
     @dictionary = import("./data/dictionary.txt")
   end
 
   def play_round
-    
+    while true
+      take_turn(current_player)
+      p "The fragment is now #{@fragment}"
+      next_player
+    end
   end
 
   def take_turn(player)
     p "Take your turn, #{player.name}"
     entry = gets.chomp
+    while !valid_play?(@fragment + entry)
+      p "Try again, #{player.name}."
+      entry = gets.chomp
+    end
+    @fragment += entry
   end
 
   def valid_play?(string)
-    if string.length == 1
-
+    @dictionary.each do |word|
+      if string == word
+        p "It seems you lost that round, #{current_player.name}"
+        return false
+      elsif string == word[0...string.length]
+        return true
+      end
+    end
+    return false
   end
 
   def fragment(x = @fragment)
@@ -37,39 +52,42 @@ class Game
     @fragment
   end
 
-  def current_player(x = @current_player)
-    @current_player = x
-    @current_player
-  end
-
   def next_player
-    @next_player, @current_player = @current_player, @next_player
+    @player_one, @player_two = @player_two, @player_one
   end
 
-  def previous_player (x = @previous_player)
-    @previous_player = x
-    @previous_player
+  def current_player(x = @player_one)
+    @player_one = x
+    @player_one
+  end
+
+  def previous_player (x = @player_two)
+    @player_two = x
+    @player_two
   end
 end
 
 class Player
   def initialize(name)
     @name = name
+    @losses = 0
+    @ghost = ""
   end
 
-  def guess
-
+  def losses(x = @losses)
+    @losses = x
+    @losses
   end
 
-  def alert_invalid_guess
-
+  def ghost(x = @ghost)
+    @ghost = x
+    @ghost
   end 
 
   def name
     @name
   end
 end
-
 
 rob = Game.new("Bob", "Ross") 
 rob.play_round
