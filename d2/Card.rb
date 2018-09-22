@@ -10,7 +10,7 @@ class Card
         if @status == "down"
             "-"
         else
-            "#{@face_value}"
+            @face_value
         end
     end
 
@@ -20,5 +20,12 @@ class Card
 
     def reveal
         @status = "up"
+    end
+
+    def ==(card)
+        if @face_value == card.face_value
+            true
+        end
+        false
     end
 end
