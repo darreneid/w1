@@ -1,10 +1,14 @@
 class Sudoku_Board
-    def initialize()
-
+    def initialize(file_path)
+        @board = from_file(file_path)
     end
 
-    def from_file
-
+    def from_file(file_path)
+        board = []
+        File.foreach(file_path) do |line|
+            board.insert(-1, line.chars[0...-1])
+        end
+        board
     end
 
     def update(pos)
@@ -12,7 +16,7 @@ class Sudoku_Board
     end
 
     def render
-
+        p @board
     end
 
     def solved?

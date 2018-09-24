@@ -1,7 +1,7 @@
 require 'colorize'
 
 class Tile
-    attr_accessor :@value, :@given
+    attr_accessor :value, :given
 
     def initialize(value, given = true)
         @value = value
