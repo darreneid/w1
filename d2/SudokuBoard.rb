@@ -4,7 +4,7 @@ class Sudoku_Board
     end
 
     def from_file(file_path)
-        board = []
+        board = Array.new
         File.foreach(file_path) do |line|
             board.insert(-1, line.chars[0...-1])
         end
