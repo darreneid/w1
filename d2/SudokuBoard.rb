@@ -13,16 +13,16 @@ class Sudoku_Board
         tile_array = Array.new(9) {Array.new(9)}
         text_array.length.times do |i|
             text_array[i].length.times do |j|
-                tile_array[i][j] = Tile.new(text_array[i][j])
+                tile_array[i][j] = Tile.new(text_array[i][j].to_i, true)
             end
         end
         tile_array
     end
 
     def update(pos, val)
-        if @board[pos[0]][pos[1]].given = true
+        if @board[pos[0]][pos[1]].given == true
         else
-            @board[pos[0]][pos[1]] = Tile.new(val, false)
+            @board[pos[0]][pos[1]].value = val
         end
         render
     end
@@ -31,7 +31,7 @@ class Sudoku_Board
         system('clear')
         @board.length.times do |i|
             @board[i].length.times do |j|
-                if @board[i][j].to_s == "0"
+                if @board[i][j].value == 0
                     @board[i][j].given = false
                     print "-" + " "
                 else
@@ -43,15 +43,32 @@ class Sudoku_Board
     end
 
     def solved?
-
     end
 
-    def row_solved?
-
+    def row_solved?(i)
+        tst = (1..9).to_a
+        p tst
+        @board[i].each do |t|
+            if tst.include?(t.value)
+                tst.delete(t.value)
+            else
+                return false
+            end
+            p tst
+        end
+        true
     end
 
-    def column_solved?
-
+    def column_solved?(j)
+        tst = (1..9).to_a
+        @board.each do |t|
+            if tst.include?(t[j].value)
+                tst.delete(t[j].value)
+            else
+                return false
+            end
+        end
+        true
     end
 
     def box_solved?
