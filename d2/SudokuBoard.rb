@@ -21,6 +21,7 @@ class Sudoku_Board
 
     def update(pos)
         if @board[pos[0]-1][pos[1]-1].given == true
+            puts "That spot is occupied by a given tile."
         else
             @board[pos[0]-1][pos[1]-1].value = pos[2]
         end
@@ -40,6 +41,7 @@ class Sudoku_Board
             end
             puts "\n"
         end
+        puts "\n"
     end
 
     def solved?
