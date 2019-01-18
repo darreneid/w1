@@ -1,7 +1,7 @@
 class Array
-  def my_each
+  def my_each(&prc)
     self.length.times do |i|
-      yield(self[i])
+      prc.call(self[i])
     end
     self
   end
@@ -119,4 +119,22 @@ def factors(num)
   end
   factors.uniq
   factors
+end
+
+
+
+
+
+
+class Array
+  def my_each(&prc)
+    (self.length).times.with_index {|i| prc.call(self[i])}
+    self
+  end
+
+  def my_map(&prc)
+    new_array = []
+    self.my_each { |x| new_array << prc.call(x)}
+    new_array
+  end
 end
